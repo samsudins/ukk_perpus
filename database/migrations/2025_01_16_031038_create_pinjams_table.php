@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_bukus', function (Blueprint $table) {
+        Schema::create('pinjams', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_kategori');
+            $table->foregnId( column:'user_id')->constrained ( table : 'users');
+            $table->foregnId( column:'buku_id')->constrained ( table : 'bukus');
+            $table->date('tanggal_pinjam');
+            $table->date('tanggal_kembali');
+            $table->varchar('status')->default('null');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kategori_bukus');
+        Schema::dropIfExists('pinjams');
     }
 };
